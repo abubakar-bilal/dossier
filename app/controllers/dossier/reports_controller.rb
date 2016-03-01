@@ -25,7 +25,7 @@ module Dossier
     end
 
     def options_params
-      report_params = params[:options].presence || {}
+      report_params = params.fetch(:options, {})
       report_params[:session] = session
       report_params
     end
