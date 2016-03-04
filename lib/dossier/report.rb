@@ -23,7 +23,7 @@ module Dossier
     def self.filename
       "#{report_name.parameterize}-report_#{Time.now.strftime('%Y-%m-%d_%H-%M-%S-%Z')}"
     end
-    
+
     def initialize(options = {})
       @options = options.dup.with_indifferent_access
     end
@@ -70,7 +70,7 @@ module Dossier
     def renderer
       @renderer ||= Renderer.new(self)
     end
-    
+
     delegate :render, to: :renderer
 
     private
@@ -80,9 +80,13 @@ module Dossier
     end
 
     def execute
-      build_query
-      run_callbacks :execute do
-        self.query_results = dossier_client.execute(query, self.class.name)
+      if self.respond_to?(:custom_result)
+        self.query_results = self.custom_result
+      else
+        build_query
+        run_callbacks :execute do
+          self.query_results = dossier_client.execute(query, self.class.name)
+        end
       end
     end
 
