@@ -1,19 +1,21 @@
 module Dossier
   class Xls
 
-    HEADER = %Q{<?xml version="1.0" encoding="UTF-8"?>\n<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:html="http://www.w3.org/TR/REC-html40">\n<Worksheet ss:Name="Sheet1">\n<Table>\n}
-    FOOTER = %Q{</Table>\n</Worksheet>\n</Workbook>\n}
 
-    def initialize(collection, headers = nil)
-      @headers    = headers || collection.shift
-      @collection = collection
+    def initialize(opts = {})
+      @headers    = opts[:headers] || opts[:collection].shift
+      @collection = opts[:collection]
+      xls_xml_styles = opts[:xls_xml_styles]
+      xls_xml_column_tags = opts[:xls_xml_column_tags]
+      @xml_header = %Q{<?xml version="1.0" encoding="UTF-8"?>\n<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:html="http://www.w3.org/TR/REC-html40">\n#{xls_xml_styles}<Worksheet ss:Name="Sheet1">\n<Table>\n#{xls_xml_column_tags}}
+      @xml_footer = %Q{</Table>\n</Worksheet>\n</Workbook>\n}
     end
 
     def each
-      yield HEADER
+      yield @xml_header
       yield as_row(@headers)
       @collection.each { |record| yield as_row(record) }
-      yield FOOTER
+      yield @xml_footer
     end
 
     private
