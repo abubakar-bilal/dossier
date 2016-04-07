@@ -71,6 +71,14 @@ module Dossier
       @renderer ||= Renderer.new(self)
     end
 
+    def xls_xml_styles
+      ""
+    end
+
+    def xls_xml_column_tags
+      ""
+    end
+
     delegate :render, to: :renderer
 
     private

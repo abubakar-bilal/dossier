@@ -24,7 +24,8 @@ module Dossier
       set_content_disposition!
       # TUKAIZ NOTE: This originally used report.raw_reulsts.arrays, which does not run the
       # formatters and display column logic. It is changed here, but in future it might be an issue
-      controller.response_body = Xls.new(*collection_and_headers(report.results.arrays))
+      given_arrays = collection_and_headers(report.results.arrays)
+      controller.response_body = Xls.new(collection: given_arrays.first, headers: given_arrays.last, xls_xml_styles: report.xls_xml_styles, xls_xml_column_tags: report.xls_xml_column_tags)
     end
 
     def respond
