@@ -25,7 +25,7 @@ module Dossier
     end
 
     def options_params
-      report_params = params.fetch(:options, {})
+      report_params = params.fetch(:options, {}).to_unsafe_h
       report_params[:session] = session
       report_params
     end
