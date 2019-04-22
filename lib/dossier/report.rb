@@ -24,7 +24,7 @@ module Dossier
       "#{report_name.parameterize}-report_#{Time.now.strftime('%Y-%m-%d_%H-%M-%S-%Z')}"
     end
 
-    def initialize(options = ActionController::Parameters.new)
+    def initialize(options = {})
       @options = options.dup.with_indifferent_access
     end
 
