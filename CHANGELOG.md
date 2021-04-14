@@ -4,6 +4,19 @@ Dossier does its best to use [semantic versioning](http://semver.org).
 
 ## Unreleased
 
+## v3.1.2.pre
+- Mysql2 : Dirty hack to force reconnection when client is not connected
+
+## v3.1.1.pre
+- Fix connection lost after a while when using mysql2 adapter along with DATABASE_URL.
+
+## v3.1.0.pre
+- Fix with_indifferent_access error
+- Fix Rails 6.0 including Arel in gemspec. Arel is now merged with ActiveRecord.
+
+## v3.0.0.pre
+- TODO
+
 ## v2.13.0
 - Heroku `DATABASE_URL` support
 - CSS classes on Dossier views
