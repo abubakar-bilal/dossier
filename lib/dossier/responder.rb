@@ -21,7 +21,7 @@ module Dossier
       controller.response_body = StreamCSV.new(*collection_and_headers(report.raw_results.arrays))
     end
 
-    def to_xls
+    def to_xlsx
       set_content_disposition!
       controller.headers['Content-Type'] = 'application/vnd.ms-excel'
       # TUKAIZ NOTE: This originally used report.raw_results.arrays, which does not run the
